@@ -1,3 +1,3 @@
 #!/bin/bash
 docker build -t nestnet .
-docker-compose up $0
+docker-compose up "$0"
