@@ -5,6 +5,8 @@ services:
     image: nestnet
     ports:
       - 4929:8080
+    volumes:
+      - nestdata:/var/lib/nestnet/
 
   db:
     image: postgres:latest
@@ -19,4 +21,5 @@ services:
 
 volumes:
   pgdata:
+  nestdata:
 
