@@ -10,17 +10,17 @@ import (
 
 type Localuser struct {
 	ID      int32
-	Name    pgtype.Text
-	Pubx    pgtype.Text
-	Puby    pgtype.Text
-	Privd   pgtype.Text
-	Address pgtype.Text
+	Name    string
+	Pubx    string
+	Puby    string
+	Privd   string
+	Address string
 }
 
 type Post struct {
 	ID      int32
-	Title   pgtype.Text
-	Body    pgtype.Text
+	Title   string
+	Body    string
 	Imgmd5  pgtype.Text
-	Imgname interface{}
+	Imgname pgtype.Text
 }
