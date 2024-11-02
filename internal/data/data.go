@@ -20,5 +20,3 @@ func GetPrivKey() {
 // Get posts
 func GetPosts() {
 }
-
-func Get
