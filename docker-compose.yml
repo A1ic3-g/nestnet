@@ -5,6 +5,8 @@ services:
     image: nestnet
     ports:
       - 4929:8080
+    volumes:
+      - nestdata:/var/lib/nestnet/
 
   db:
     image: postgres:latest
@@ -15,4 +17,11 @@ services:
     ports:
       - 5432:5432
     volumes:
+      - pgdata:/var/lib/postgresql/database  # Persist database with a named volume
       - ./internal/database/:/docker-entrypoint-initdb.d/
+
+volumes:
+  pgdata:
+  nestdata:
+
+
