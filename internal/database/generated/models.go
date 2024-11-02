@@ -22,5 +22,5 @@ type Post struct {
 	Title   pgtype.Text
 	Body    pgtype.Text
 	Imgmd5  pgtype.Text
-	Imgname interface{}
+	Imgname pgtype.Text
 }

@@ -12,5 +12,5 @@ CREATE TABLE Posts(
     title VARCHAR(255),
     body VARCHAR(1024),
     imgmd5 VARCHAR(16),
-    imgname VAR(255)
+    imgname VARCHAR(255)
 );

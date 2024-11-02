@@ -1,5 +1,5 @@
 # Step 1: Build the Go binary
-FROM golang:1.20-alpine AS builder
+FROM golang:1.23.2-alpine AS builder
 
 # Set the working directory inside the container
 WORKDIR /app
@@ -12,6 +12,14 @@ RUN go mod download
 
 # Copy the rest of the application code
 COPY . .
+
+RUN go install github.com/sqlc-dev/sqlc/cmd/sqlc@latest
+
+WORKDIR /app/internal/database
+
+RUN sqlc generate
+
+WORKDIR /app
 
 # Build the application binary
 RUN go build -o nestnet .

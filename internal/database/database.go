@@ -28,7 +28,7 @@ func GetPrivKey() {
 func GetPosts() []generated.Post {
 	ctx := context.Background()
 
-	conn, err := pgx.Connect(ctx, "user=admin dbname=mydatabase password=secret")
+	conn, err := pgx.Connect(ctx, "user=nest password=net dbname=nestnetdatabase host=localhost port=5432 sslmode=disable")
 	if err != nil {
 		log.Fatal(err)
 	}
