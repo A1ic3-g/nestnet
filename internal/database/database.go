@@ -26,7 +26,6 @@ func getQueries() *generated.Queries {
 	return queries
 }
 
-// Get profile name
 func GetName() string {
 	name, err := getQueries().GetName(context.Background())
 	if err != nil {
@@ -36,7 +35,6 @@ func GetName() string {
 	return name
 }
 
-// Set profile name
 func SetName(name string) {
 	err := getQueries().SetName(context.Background(), name)
 	if err != nil {
@@ -44,7 +42,6 @@ func SetName(name string) {
 	}
 }
 
-// Get public key
 func GetPubKey() ecdsa.PublicKey {
 	key, err := getQueries().GetPubKey(context.Background())
 	if err != nil {
@@ -54,7 +51,6 @@ func GetPubKey() ecdsa.PublicKey {
 	return key
 }
 
-// Get private key
 func GetPrivKey() ecdsa.PrivateKey {
 	d, err := getQueries().GetPrivKey(context.Background())
 	if err != nil {
@@ -67,7 +63,6 @@ func GetPrivKey() ecdsa.PrivateKey {
 	}
 }
 
-// Get posts
 func GetPosts() []generated.Post {
 	posts, err := getQueries().GetPosts(context.Background())
 	if err != nil {

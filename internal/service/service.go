@@ -25,7 +25,6 @@ type helloRes struct {
 
 const ADDR = "0.0.0.0:8080"
 
-// Test handler
 func testHandler(w http.ResponseWriter, r *http.Request) {
 	msg := "Hello, world!\n"
 	sent, err := w.Write([]byte(msg))
@@ -34,7 +33,6 @@ func testHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// helloHandler asks the given address to sign a hello message and verifies it using the given public key
 func helloHandler(w http.ResponseWriter, req *http.Request) {
 	var reqBody helloReq
 	msg := "HELLO"
@@ -70,11 +68,6 @@ func helloHandler(w http.ResponseWriter, req *http.Request) {
 	}
 }
 
-// Posts handler
-//
-// Send: number of most recent posts to get (optional)
-//
-// Receive: posts with signature
 func postsHandler(w http.ResponseWriter, r *http.Request) {
 
 }
