@@ -1,4 +1,4 @@
-package data
+package database
 
 // Get profile name
 func GetName() {

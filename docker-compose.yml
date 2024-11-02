@@ -15,7 +15,7 @@ services:
     ports:
       - "5432:5432"  # Expose the default PostgreSQL port
     volumes:
-      - pgdata:/var/lib/postgresql/data  # Persist data with a named volume
+      - pgdata:/var/lib/postgresql/database  # Persist database with a named volume
 
 volumes:
   pgdata:
