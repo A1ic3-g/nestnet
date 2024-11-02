@@ -1,7 +1,13 @@
 package main
 
-import "nestnet/internal/service"
+import (
+	"log"
+	"nestnet/internal/database"
+	"nestnet/internal/service"
+)
 
 func main() {
 	service.Start()
+
+	log.Println(database.GetPosts())
 }

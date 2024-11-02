@@ -1,2 +1,2 @@
--- name: getAll :many
-SELECT * FROM LocalUser;
+-- name: getName :one
+SELECT name FROM LocalUser;

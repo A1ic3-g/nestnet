@@ -7,35 +7,17 @@ package generated
 
 import (
 	"context"
+
+	"github.com/jackc/pgx/v5/pgtype"
 )
 
-const getAll = `-- name: getAll :many
-SELECT id, name, pubx, puby, privd, address FROM LocalUser
+const getName = `-- name: getName :one
+SELECT name FROM LocalUser
 `
 
-func (q *Queries) getAll(ctx context.Context) ([]Localuser, error) {
-	rows, err := q.db.Query(ctx, getAll)
-	if err != nil {
-		return nil, err
-	}
-	defer rows.Close()
-	var items []Localuser
-	for rows.Next() {
-		var i Localuser
-		if err := rows.Scan(
-			&i.ID,
-			&i.Name,
-			&i.Pubx,
-			&i.Puby,
-			&i.Privd,
-			&i.Address,
-		); err != nil {
-			return nil, err
-		}
-		items = append(items, i)
-	}
-	if err := rows.Err(); err != nil {
-		return nil, err
-	}
-	return items, nil
+func (q *Queries) getName(ctx context.Context) (pgtype.Text, error) {
+	row := q.db.QueryRow(ctx, getName)
+	var name pgtype.Text
+	err := row.Scan(&name)
+	return name, err
 }
