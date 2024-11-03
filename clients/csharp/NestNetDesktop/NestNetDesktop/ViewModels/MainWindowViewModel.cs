@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Security.Authentication.ExtendedProtection;
@@ -70,7 +71,14 @@ public partial class MainWindowViewModel : ViewModelBase
         // Get currently set name /get_name and set UserName to it
         var name = await (await client.GetAsync($"{InstanceUrl}/get_name")).Content.ReadFromJsonAsync<NameModel>();
         // Get all posts with /retrieve
-        var posts = await client.GetFromJsonAsync<PostViewModel[]>($"{InstanceUrl}/retrieve");
-        Posts = new ObservableCollection<PostViewModel>(posts);
+        try
+        {
+            var posts = await client.GetFromJsonAsync<PostViewModel[]>($"{InstanceUrl}/posts");
+            Posts = new ObservableCollection<PostViewModel>(posts);
+        }
+        catch 
+        {
+            Console.WriteLine("Failed to get posts");
+        }
     }
 }
