@@ -1,9 +1,6 @@
 CREATE TABLE LocalUser (
     id CHAR(36) PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
-    pubX CHAR(32) NOT NULL,
-    pubY CHAR(32) NOT NULL,
-    privD CHAR(32) NOT NULL,
     address VARCHAR(255) NOT NULL
 );
 
@@ -18,7 +15,5 @@ CREATE TABLE Posts(
 CREATE TABLE Peers(
     id CHAR(36) PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
-    pubX CHAR(32) NOT NULL,
-    pubY CHAR(32) NOT NULL,
     address VARCHAR(255) NOT NULL
 );

@@ -10,8 +10,6 @@ func (q *Queries) AddPeer(ctx context.Context, peer *Peer) error {
 	params := addPeerParams{
 		ID:      peer.ID,
 		Name:    peer.Name,
-		Pubx:    peer.Pubx,
-		Puby:    peer.Puby,
 		Address: peer.Address,
 	}
 	return q.addPeer(ctx, params)

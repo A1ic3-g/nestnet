@@ -1,10 +1,7 @@
 package service
 
 import (
-	"crypto/ecdsa"
-	"crypto/elliptic"
 	"crypto/md5"
-	"crypto/sha256"
 	"encoding/base64"
 	"encoding/hex"
 	"encoding/json"
@@ -12,25 +9,15 @@ import (
 	"github.com/google/uuid"
 	"io"
 	"log"
-	"math/big"
 	"nestnet/internal/database"
 	"nestnet/internal/database/generated"
 	"net/http"
 	"os"
 	"path/filepath"
-	"strconv"
-	"strings"
 )
 
 type HelloReq struct {
-	Addr string   `json:"addr"`
-	X    *big.Int `json:"x"` // Public key x
-	Y    *big.Int `json:"y"` // Public key y
-}
-
-type HelloRes struct {
-	R *big.Int `json:"r"` // Signature r
-	S *big.Int `json:"s"` // Signature s
+	Addr string `json:"addr"`
 }
 
 type Post struct {
@@ -52,53 +39,6 @@ const ADDR = ":8080"
 func testHandler(w http.ResponseWriter, r *http.Request) {
 	msg := "Hello, world!\n"
 	if _, err := w.Write([]byte(msg)); err != nil {
-		http.Error(w, "Failed to write response", http.StatusInternalServerError)
-		log.Println("Error writing response:", err)
-	}
-}
-
-// helloHandler asks the given address to sign a hello message and verifies it using the given public key
-func helloHandler(w http.ResponseWriter, req *http.Request) {
-	var reqBody HelloReq
-	msg := "HELLO"
-
-	if err := json.NewDecoder(req.Body).Decode(&reqBody); err != nil {
-		http.Error(w, "Invalid request body", http.StatusBadRequest)
-		log.Println("Error decoding request body:", err)
-		return
-	}
-
-	out, err := http.NewRequest(http.MethodPost, reqBody.Addr, strings.NewReader(msg))
-	if err != nil {
-		http.Error(w, "Failed to create request", http.StatusInternalServerError)
-		log.Println("Error creating request:", err)
-		return
-	}
-
-	res, err := http.DefaultClient.Do(out)
-	if err != nil {
-		http.Error(w, "Request failed", http.StatusInternalServerError)
-		log.Println("Error sending request:", err)
-		return
-	}
-	defer res.Body.Close()
-
-	var resBody HelloRes
-	if err := json.NewDecoder(res.Body).Decode(&resBody); err != nil {
-		http.Error(w, "Failed to decode response", http.StatusInternalServerError)
-		log.Println("Error decoding response:", err)
-		return
-	}
-
-	hash := sha256.Sum256([]byte(msg))
-	success := ecdsa.Verify(&ecdsa.PublicKey{
-		Curve: elliptic.P256(),
-		X:     reqBody.X,
-		Y:     reqBody.Y,
-	}, hash[:], resBody.R, resBody.S)
-
-	successStr := strconv.FormatBool(success)
-	if _, err := w.Write([]byte(successStr)); err != nil {
 		http.Error(w, "Failed to write response", http.StatusInternalServerError)
 		log.Println("Error writing response:", err)
 	}
@@ -242,7 +182,6 @@ func Start() {
 	// Create a new ServeMux and register handlers
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", testHandler)
-	mux.HandleFunc("/hello", helloHandler)
 	mux.HandleFunc("/posts", postsHandler)
 	mux.HandleFunc("/image", imageHandler)
 	mux.HandleFunc("/add_post", addPostHandler)
