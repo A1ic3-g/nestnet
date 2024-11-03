@@ -23,8 +23,8 @@ type ImageUploadRequest struct {
 
 const ADDR = ":8080"
 
-// Test handler
-func testHandler(w http.ResponseWriter, r *http.Request) {
+// defaultHandler gives a hello world message as a default response
+func defaultHandler(w http.ResponseWriter, r *http.Request) {
 	msg := "Hello, world!\n"
 	if _, err := w.Write([]byte(msg)); err != nil {
 		http.Error(w, "Failed to write response", http.StatusInternalServerError)
@@ -141,6 +141,7 @@ func imageHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// addPostHandler handles adding a post to the user's posts
 func addPostHandler(w http.ResponseWriter, r *http.Request) {
 	var post generated.Post
 	err := json.NewDecoder(r.Body).Decode(&post)
@@ -152,6 +153,7 @@ func addPostHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusCreated)
 }
 
+// addPeerHandler handles adding a peer to the user's peers
 func addPeerHandler(w http.ResponseWriter, r *http.Request) {
 	var peer generated.Peer
 	err := json.NewDecoder(r.Body).Decode(&peer)
@@ -168,7 +170,7 @@ func Start() {
 
 	// Create a new ServeMux and register handlers
 	mux := http.NewServeMux()
-	mux.HandleFunc("/", testHandler)
+	mux.HandleFunc("/", defaultHandler)
 	mux.HandleFunc("/posts", postsHandler)
 	mux.HandleFunc("/image", imageHandler)
 	mux.HandleFunc("/add_post", addPostHandler)

@@ -7,6 +7,7 @@ import (
 	"nestnet/internal/database/generated"
 )
 
+// getQueries gets the queries struct used to query the database
 func getQueries() *generated.Queries {
 	ctx := context.Background()
 
@@ -27,6 +28,7 @@ func getQueries() *generated.Queries {
 	return queries
 }
 
+// GetName gets the user's name
 func GetName() string {
 	name, err := getQueries().GetName(context.Background())
 	if err != nil {
@@ -36,6 +38,7 @@ func GetName() string {
 	return name
 }
 
+// SetName sets the user's name
 func SetName(name string) {
 	err := getQueries().SetName(context.Background(), name)
 	if err != nil {
@@ -43,6 +46,7 @@ func SetName(name string) {
 	}
 }
 
+// GetPosts gets the user's posts
 func GetPosts() []generated.Post {
 	posts, err := getQueries().GetPosts(context.Background())
 	if err != nil {
@@ -52,6 +56,7 @@ func GetPosts() []generated.Post {
 	return posts
 }
 
+// GetPeers gets the user's peers
 func GetPeers() []generated.Peer {
 	peers, err := getQueries().GetPeers(context.Background())
 	if err != nil {
@@ -61,6 +66,7 @@ func GetPeers() []generated.Peer {
 	return peers
 }
 
+// AddPost adds a post to the user's posts
 func AddPost(post generated.Post) {
 	err := getQueries().AddPost(context.Background(), post)
 	if err != nil {
@@ -68,6 +74,7 @@ func AddPost(post generated.Post) {
 	}
 }
 
+// AddPeer adds a peer to the user's peers
 func AddPeer(peer generated.Peer) {
 	err := getQueries().AddPeer(context.Background(), &peer)
 	if err != nil {
