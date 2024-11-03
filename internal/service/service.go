@@ -13,8 +13,6 @@ import (
 	"io"
 	"log"
 	"math/big"
-	"nestnet/internal/database"
-	"nestnet/internal/database/generated"
 	"net/http"
 	"os"
 	"path/filepath"
@@ -214,28 +212,6 @@ func imageHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func addPostHandler(w http.ResponseWriter, r *http.Request) {
-	var post generated.Post
-	err := json.NewDecoder(r.Body).Decode(&post)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	database.AddPost(post)
-	w.WriteHeader(http.StatusCreated)
-}
-
-func addPeerHandler(w http.ResponseWriter, r *http.Request) {
-	var peer generated.Peer
-	err := json.NewDecoder(r.Body).Decode(&peer)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	database.AddPeer(peer)
-	w.WriteHeader(http.StatusCreated)
-}
-
 func Start() {
 	os.MkdirAll(imageDir, os.FileMode(0777))
 
@@ -245,8 +221,6 @@ func Start() {
 	mux.HandleFunc("/hello", helloHandler)
 	mux.HandleFunc("/posts", postsHandler)
 	mux.HandleFunc("/image", imageHandler)
-	mux.HandleFunc("/add_post", addPostHandler)
-	mux.HandleFunc("/add_peer", addPeerHandler)
 
 	// Start the server with ListenAndServe
 	log.Printf("Server starting on %s\n", ADDR)

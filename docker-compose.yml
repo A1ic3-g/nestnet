@@ -20,7 +20,7 @@ services:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/database  # Persist database with a named volume
-      - ./internal/database/:/docker-entrypoint-initdb.d/
+      - ./internal/database/:/docker-entrypoint-initdb.d/:rw
 
 volumes:
   pgdata:
