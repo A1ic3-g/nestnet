@@ -17,6 +17,14 @@ type Localuser struct {
 	Address string
 }
 
+type Peer struct {
+	ID      int32
+	Name    string
+	Pubx    string
+	Puby    string
+	Address string
+}
+
 type Post struct {
 	ID      int32
 	Title   string

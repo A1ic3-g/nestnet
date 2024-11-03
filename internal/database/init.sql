@@ -14,3 +14,11 @@ CREATE TABLE Posts(
     imgmd5 VARCHAR(16),
     imgname VARCHAR(255)
 );
+
+CREATE TABLE Peers(
+    id INT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    pubX CHAR(32) NOT NULL,
+    pubY CHAR(32) NOT NULL,
+    address VARCHAR(255) NOT NULL
+);
