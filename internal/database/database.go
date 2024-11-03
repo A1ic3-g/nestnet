@@ -71,3 +71,12 @@ func GetPosts() []generated.Post {
 
 	return posts
 }
+
+func GetPeers() []generated.Peer {
+	peers, err := getQueries().GetPeers(context.Background())
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return peers
+}

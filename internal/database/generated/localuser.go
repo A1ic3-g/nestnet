@@ -19,7 +19,7 @@ func (q *Queries) GetPrivKey(ctx context.Context) (big.Int, error) {
 	dStr, err := q.getPrivKey(ctx)
 
 	d := new(big.Int)
-	d.SetString(string(dStr), 16)
+	d.SetString(dStr, 16)
 	return *d, err
 }
 
