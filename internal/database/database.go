@@ -89,3 +89,10 @@ func AddPost(post generated.Post) {
 		log.Fatal(err)
 	}
 }
+
+func AddPeer(peer generated.Peer) {
+	err := getQueries().AddPeer(context.Background(), &peer)
+	if err != nil {
+		log.Fatal(err)
+	}
+}
