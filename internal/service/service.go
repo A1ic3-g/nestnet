@@ -16,10 +16,6 @@ import (
 	"path/filepath"
 )
 
-type HelloReq struct {
-	Addr string `json:"addr"`
-}
-
 type Post struct {
 	ID      uuid.UUID `json:"id"`
 	Title   string    `json:"title"`
