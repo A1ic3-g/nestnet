@@ -8,8 +8,7 @@ CREATE TABLE Posts(
     id CHAR(36) PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     body VARCHAR(1024) NOT NULL,
-    imgmd5 VARCHAR(16),
-    imgname VARCHAR(255)
+    imgmd5 VARCHAR(16) NOT NULL
 );
 
 CREATE TABLE Peers(

@@ -7,8 +7,6 @@ package generated
 
 import (
 	"context"
-
-	"github.com/jackc/pgx/v5/pgtype"
 )
 
 const addPost = `-- name: addPost :exec
@@ -19,7 +17,7 @@ type addPostParams struct {
 	ID     string
 	Title  string
 	Body   string
-	Imgmd5 pgtype.Text
+	Imgmd5 string
 }
 
 func (q *Queries) addPost(ctx context.Context, arg addPostParams) error {
@@ -33,7 +31,7 @@ func (q *Queries) addPost(ctx context.Context, arg addPostParams) error {
 }
 
 const getPosts = `-- name: getPosts :many
-SELECT id, title, body, imgmd5, imgname From Posts
+SELECT id, title, body, imgmd5 From Posts
 `
 
 func (q *Queries) getPosts(ctx context.Context) ([]Post, error) {
@@ -50,7 +48,6 @@ func (q *Queries) getPosts(ctx context.Context) ([]Post, error) {
 			&i.Title,
 			&i.Body,
 			&i.Imgmd5,
-			&i.Imgname,
 		); err != nil {
 			return nil, err
 		}

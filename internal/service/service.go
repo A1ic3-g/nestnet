@@ -45,15 +45,7 @@ func defaultHandler(w http.ResponseWriter, r *http.Request) {
 // postsHandler sends the most recent posts as JSON
 func postsHandler(w http.ResponseWriter, r *http.Request) {
 	log.Println("Received posts request")
-	var posts []generated.Post
-	testPost := generated.Post{
-		ID:     uuid.New(),
-		Title:  "Test title",
-		Body:   "lorem ipsum yeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee yippeeeee",
-		ImgMd5: "",
-	}
-
-	posts = append(posts, testPost)
+	posts := database.GetPosts()
 
 	// Marshal the posts slice into JSON
 	jsonData, err := json.Marshal(posts)
@@ -156,11 +148,27 @@ func addPostHandler(w http.ResponseWriter, r *http.Request) {
 	var post generated.Post
 	err := json.NewDecoder(r.Body).Decode(&post)
 	if err != nil {
-		log.Fatal(err)
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	if post.ID == "" {
+		post.ID = uuid.New().String()
 	}
 
+	// Assuming database.AddPost does not return an error
 	database.AddPost(post)
+
 	w.WriteHeader(http.StatusCreated)
+
+	// Respond with the post ID in JSON format
+	response := map[string]string{"id": post.ID}
+	jsonResponse, err := json.Marshal(response)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(jsonResponse)
 }
 
 // addPeerHandler handles adding a peer to the user's peers
