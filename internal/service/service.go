@@ -14,6 +14,7 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"strings"
 )
 
 // ImageUploadRequest is the expected JSON structure for the POST request
@@ -24,6 +25,10 @@ type ImageUploadRequest struct {
 // SetNameRequest is the expected JSON structure for the set name request
 type SetNameRequest struct {
 	Name string `json:"name"`
+}
+
+type RetrieveResponse struct {
+	Posts []generated.Post `json:"posts"`
 }
 
 const ADDR = ":8080"
@@ -187,6 +192,53 @@ func setNameHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	database.SetName(reqBody.Name)
 	w.WriteHeader(http.StatusCreated)
+}
+
+// retrieveHandler handles retrieving all the posts from all peers
+func retrieveHandler(w http.ResponseWriter, r *http.Request) {
+	posts := make([]generated.Post, 0)
+
+	peers := database.GetPeers()
+
+	for i := range peers {
+		req, err := http.NewRequest("GET", peers[i].Address, strings.NewReader(""))
+		if err != nil {
+			log.Fatal(err)
+		}
+		res, err := http.DefaultClient.Do(req)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		var ps []generated.Post
+		err = json.NewDecoder(res.Body).Decode(&ps)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		for j := range ps {
+			posts = append(posts, ps[j])
+		}
+	}
+
+	var retRes RetrieveResponse
+	err := json.NewEncoder(w).Encode(retRes)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+
+	retResJSON, err := json.Marshal(retRes)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	sent, err := w.Write(retResJSON)
+	if sent != len(retResJSON) || err != nil {
+		log.Fatal(err)
+	}
 }
 
 func Start() {
