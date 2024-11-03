@@ -37,10 +37,10 @@ func postsHandler(w http.ResponseWriter, r *http.Request) {
 	log.Println("Received posts request")
 	var posts []generated.Post
 	testPost := generated.Post{
-		ID:     uuid.New(),
+		ID:     uuid.New().String(),
 		Title:  "Test title",
 		Body:   "lorem ipsum yeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee yippeeeee",
-		ImgMd5: "",
+		Imgmd5: "",
 	}
 
 	posts = append(posts, testPost)
