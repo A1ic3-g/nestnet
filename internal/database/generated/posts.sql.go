@@ -7,7 +7,32 @@ package generated
 
 import (
 	"context"
+
+	"github.com/jackc/pgx/v5/pgtype"
 )
+
+const addPost = `-- name: addPost :exec
+INSERT INTO Posts (id, title, body, imgmd5, imgname) VALUES ($1, $2, $3, $4, $5)
+`
+
+type addPostParams struct {
+	ID      string
+	Title   string
+	Body    string
+	Imgmd5  pgtype.Text
+	Imgname pgtype.Text
+}
+
+func (q *Queries) addPost(ctx context.Context, arg addPostParams) error {
+	_, err := q.db.Exec(ctx, addPost,
+		arg.ID,
+		arg.Title,
+		arg.Body,
+		arg.Imgmd5,
+		arg.Imgname,
+	)
+	return err
+}
 
 const getPosts = `-- name: getPosts :many
 SELECT id, title, body, imgmd5, imgname From Posts

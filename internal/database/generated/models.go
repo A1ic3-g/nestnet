@@ -9,7 +9,7 @@ import (
 )
 
 type Localuser struct {
-	ID      int32
+	ID      string
 	Name    string
 	Pubx    string
 	Puby    string
@@ -18,7 +18,7 @@ type Localuser struct {
 }
 
 type Peer struct {
-	ID      int32
+	ID      string
 	Name    string
 	Pubx    string
 	Puby    string
@@ -26,7 +26,7 @@ type Peer struct {
 }
 
 type Post struct {
-	ID      int32
+	ID      string
 	Title   string
 	Body    string
 	Imgmd5  pgtype.Text

@@ -15,12 +15,14 @@ func getQueries() *generated.Queries {
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer func(conn *pgx.Conn, ctx context.Context) {
-		err := conn.Close(ctx)
-		if err != nil {
-			log.Fatal(err)
-		}
-	}(conn, ctx)
+	/*
+		defer func(conn *pgx.Conn, ctx context.Context) {
+			err := conn.Close(ctx)
+			if err != nil {
+				log.Fatal(err)
+			}
+		}(conn, ctx)
+	*/
 
 	queries := generated.New(conn)
 	return queries
@@ -79,4 +81,11 @@ func GetPeers() []generated.Peer {
 	}
 
 	return peers
+}
+
+func AddPost(post generated.Post) {
+	err := getQueries().AddPost(context.Background(), post)
+	if err != nil {
+		log.Fatal(err)
+	}
 }
