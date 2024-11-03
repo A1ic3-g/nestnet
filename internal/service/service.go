@@ -21,6 +21,11 @@ type ImageUploadRequest struct {
 	ImageBase64 string `json:"image_base64"` // Base64-encoded image data
 }
 
+// SetNameRequest is the expected JSON structure for the set name request
+type SetNameRequest struct {
+	Name string `json:"name"`
+}
+
 const ADDR = ":8080"
 
 // defaultHandler gives a hello world message as a default response
@@ -165,6 +170,25 @@ func addPeerHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusCreated)
 }
 
+// getNameHandler handles getting the user's name
+func getNameHandler(w http.ResponseWriter, r *http.Request) {
+	sent, err := w.Write([]byte(database.GetName()))
+	if sent != len([]byte(database.GetName())) || err != nil {
+		log.Fatal(err)
+	}
+}
+
+// setNameHandler handles setting the user's name
+func setNameHandler(w http.ResponseWriter, r *http.Request) {
+	var reqBody SetNameRequest
+	err := json.NewDecoder(r.Body).Decode(&reqBody)
+	if err != nil {
+		log.Fatal(err)
+	}
+	database.SetName(reqBody.Name)
+	w.WriteHeader(http.StatusCreated)
+}
+
 func Start() {
 	os.MkdirAll(imageDir, os.FileMode(0777))
 
@@ -175,6 +199,8 @@ func Start() {
 	mux.HandleFunc("/image", imageHandler)
 	mux.HandleFunc("/add_post", addPostHandler)
 	mux.HandleFunc("/add_peer", addPeerHandler)
+	mux.HandleFunc("/get_name", getNameHandler)
+	mux.HandleFunc("/set_name", setNameHandler)
 
 	// Start the server with ListenAndServe
 	log.Printf("Server starting on %s\n", ADDR)
