@@ -10,30 +10,22 @@ import (
 )
 
 const addPeer = `-- name: addPeer :exec
-INSERT INTO Peers (id, name, pubX, pubY, address) VALUES ($1, $2, $3, $4, $5)
+INSERT INTO Peers (id, name, address) VALUES ($1, $2, $3)
 `
 
 type addPeerParams struct {
 	ID      string
 	Name    string
-	Pubx    string
-	Puby    string
 	Address string
 }
 
 func (q *Queries) addPeer(ctx context.Context, arg addPeerParams) error {
-	_, err := q.db.Exec(ctx, addPeer,
-		arg.ID,
-		arg.Name,
-		arg.Pubx,
-		arg.Puby,
-		arg.Address,
-	)
+	_, err := q.db.Exec(ctx, addPeer, arg.ID, arg.Name, arg.Address)
 	return err
 }
 
 const getPeers = `-- name: getPeers :many
-SELECT id, name, pubx, puby, address FROM Peers
+SELECT id, name, address FROM Peers
 `
 
 func (q *Queries) getPeers(ctx context.Context) ([]Peer, error) {
@@ -45,13 +37,7 @@ func (q *Queries) getPeers(ctx context.Context) ([]Peer, error) {
 	var items []Peer
 	for rows.Next() {
 		var i Peer
-		if err := rows.Scan(
-			&i.ID,
-			&i.Name,
-			&i.Pubx,
-			&i.Puby,
-			&i.Address,
-		); err != nil {
+		if err := rows.Scan(&i.ID, &i.Name, &i.Address); err != nil {
 			return nil, err
 		}
 		items = append(items, i)

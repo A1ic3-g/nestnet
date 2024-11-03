@@ -10,11 +10,10 @@ func (q *Queries) GetPosts(ctx context.Context) ([]Post, error) {
 
 func (q *Queries) AddPost(ctx context.Context, post Post) error {
 	params := addPostParams{
-		ID:      post.ID,
-		Title:   post.Title,
-		Body:    post.Body,
-		Imgmd5:  post.Imgmd5,
-		Imgname: post.Imgname,
+		ID:     post.ID,
+		Title:  post.Title,
+		Body:   post.Body,
+		Imgmd5: post.Imgmd5,
 	}
 	return q.addPost(ctx, params)
 }

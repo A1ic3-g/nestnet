@@ -11,17 +11,12 @@ import (
 type Localuser struct {
 	ID      string
 	Name    string
-	Pubx    string
-	Puby    string
-	Privd   string
 	Address string
 }
 
 type Peer struct {
 	ID      string
 	Name    string
-	Pubx    string
-	Puby    string
 	Address string
 }
 

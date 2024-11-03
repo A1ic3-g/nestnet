@@ -12,15 +12,14 @@ import (
 )
 
 const addPost = `-- name: addPost :exec
-INSERT INTO Posts (id, title, body, imgmd5, imgname) VALUES ($1, $2, $3, $4, $5)
+INSERT INTO Posts (id, title, body, imgmd5) VALUES ($1, $2, $3, $4)
 `
 
 type addPostParams struct {
-	ID      string
-	Title   string
-	Body    string
-	Imgmd5  pgtype.Text
-	Imgname pgtype.Text
+	ID     string
+	Title  string
+	Body   string
+	Imgmd5 pgtype.Text
 }
 
 func (q *Queries) addPost(ctx context.Context, arg addPostParams) error {
@@ -29,7 +28,6 @@ func (q *Queries) addPost(ctx context.Context, arg addPostParams) error {
 		arg.Title,
 		arg.Body,
 		arg.Imgmd5,
-		arg.Imgname,
 	)
 	return err
 }

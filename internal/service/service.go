@@ -16,14 +16,6 @@ import (
 	"path/filepath"
 )
 
-type Post struct {
-	ID      uuid.UUID `json:"id"`
-	Title   string    `json:"title"`
-	Body    string    `json:"body"`
-	ImgMd5  string    `json:"img_md5"`
-	ImgName string    `json:"img_name"`
-}
-
 // ImageUploadRequest is the expected JSON structure for the POST request
 type ImageUploadRequest struct {
 	ImageBase64 string `json:"image_base64"` // Base64-encoded image data
@@ -43,13 +35,12 @@ func testHandler(w http.ResponseWriter, r *http.Request) {
 // postsHandler sends the most recent posts as JSON
 func postsHandler(w http.ResponseWriter, r *http.Request) {
 	log.Println("Received posts request")
-	var posts []Post
-	testPost := Post{
-		ID:      uuid.New(),
-		Title:   "Test title",
-		Body:    "lorem ipsum yeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee yippeeeee",
-		ImgMd5:  "",
-		ImgName: "",
+	var posts []generated.Post
+	testPost := generated.Post{
+		ID:     uuid.New(),
+		Title:  "Test title",
+		Body:   "lorem ipsum yeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee yippeeeee",
+		ImgMd5: "",
 	}
 
 	posts = append(posts, testPost)

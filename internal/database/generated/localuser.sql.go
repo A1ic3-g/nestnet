@@ -20,28 +20,6 @@ func (q *Queries) getName(ctx context.Context) (string, error) {
 	return name, err
 }
 
-const getPrivKey = `-- name: getPrivKey :one
-SELECT privD FROM LocalUser
-`
-
-func (q *Queries) getPrivKey(ctx context.Context) (string, error) {
-	row := q.db.QueryRow(ctx, getPrivKey)
-	var privd string
-	err := row.Scan(&privd)
-	return privd, err
-}
-
-const getPubKey = `-- name: getPubKey :one
-SELECT (pubX, pubY) FROM LocalUser
-`
-
-func (q *Queries) getPubKey(ctx context.Context) (interface{}, error) {
-	row := q.db.QueryRow(ctx, getPubKey)
-	var column_1 interface{}
-	err := row.Scan(&column_1)
-	return column_1, err
-}
-
 const setName = `-- name: setName :exec
 UPDATE LocalUser SET name=$1
 `
