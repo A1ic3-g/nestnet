@@ -4,10 +4,6 @@
 
 package generated
 
-import (
-	"github.com/jackc/pgx/v5/pgtype"
-)
-
 type Localuser struct {
 	ID      string
 	Name    string
@@ -21,9 +17,8 @@ type Peer struct {
 }
 
 type Post struct {
-	ID      string
-	Title   string
-	Body    string
-	Imgmd5  pgtype.Text
-	Imgname pgtype.Text
+	ID     string
+	Title  string
+	Body   string
+	Imgmd5 string
 }
