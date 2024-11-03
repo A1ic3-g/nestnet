@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("NestNetDesktop")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+aaf54b17c92031ddf2ac16cca9ef8e77671cba99")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+da1cd504b209e78ddc165de5a5facb7560275389")]
 [assembly: System.Reflection.AssemblyProductAttribute("NestNetDesktop")]
 [assembly: System.Reflection.AssemblyTitleAttribute("NestNetDesktop")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -261,6 +261,7 @@ func Start() {
 	mux.HandleFunc("/add_peer", addPeerHandler)
 	mux.HandleFunc("/get_name", getNameHandler)
 	mux.HandleFunc("/set_name", setNameHandler)
+	mux.HandleFunc("/retrieve", retrieveHandler)
 
 	// Start the server with ListenAndServe
 	log.Printf("Server starting on %s\n", ADDR)

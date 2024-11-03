@@ -24,3 +24,9 @@ build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
 [/home/A/GolandProjects/nestnet/clients/csharp/NestNetDesktop/NestNetDesktop/Views/MainWindow.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[/home/A/GolandProjects/nestnet/clients/csharp/NestNetDesktop/NestNetDesktop/Views/NewPostUserControl.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[/home/A/GolandProjects/nestnet/clients/csharp/NestNetDesktop/NestNetDesktop/Views/PostUserControl.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml

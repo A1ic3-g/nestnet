@@ -1,0 +1,25 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="NestNetDesktop.Views.NewPostUserControl"
+             xmlns:vm="using:NestNetDesktop.ViewModels"
+             x:DataType="vm:NewPostViewModel">
+    <Border Margin="10">
+        <Grid Width="400">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="75" />
+                <RowDefinition Height="250" />
+                <RowDefinition Height="50" />
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Text="{Binding Title}" />
+            <ScrollViewer Grid.Row="1">
+                <TextBlock Text="{Binding Body}" />
+            </ScrollViewer>
+            <Button Grid.Row="2" 
+                    Width="75" Height="40" 
+                    Command="{Binding PublishCommand }"/>
+        </Grid>
+    </Border>
+</UserControl>
