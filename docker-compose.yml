@@ -2,9 +2,11 @@ version: "3.8"
 
 services:
   nestnet:
+    depends_on:
+      - db
     image: nestnet
     ports:
-      - 4929:8080
+      - "4929:8080"
     volumes:
       - nestdata:/var/lib/nestnet/
 
@@ -15,7 +17,7 @@ services:
       POSTGRES_PASSWORD: net
       POSTGRES_DB: nestnetdatabase
     ports:
-      - 5432:5432
+      - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/database  # Persist database with a named volume
       - ./internal/database/:/docker-entrypoint-initdb.d/

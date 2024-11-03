@@ -11,11 +11,11 @@ COPY go.sum .
 # Download dependencies
 RUN go mod download
 
-# Copy the rest of the application code
-COPY . .
-
 # Install sqlc
 RUN go install github.com/sqlc-dev/sqlc/cmd/sqlc@latest
+
+# Copy the rest of the application code
+COPY . .
 
 # Generate database code
 WORKDIR /app/internal/database
