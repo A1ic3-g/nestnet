@@ -11,7 +11,7 @@ import (
 func getQueries() *generated.Queries {
 	ctx := context.Background()
 
-	conn, err := pgx.Connect(ctx, "user=nest password=net dbname=nestnetdatabase host=localhost port=5432 sslmode=disable")
+	conn, err := pgx.Connect(ctx, "user=nest password=net dbname=nestnetdatabase host=db port=5432 sslmode=disable")
 	if err != nil {
 		log.Fatal(err)
 	}
